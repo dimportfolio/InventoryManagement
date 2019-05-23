@@ -1,14 +1,14 @@
 const express = require("express");
 const bodyParser = require("body-parser");
+const session = require("express-session");
 
 //initialize express
 const app = express();
 
 //bodyparser middleware
+app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
-//bring in routes
-const routes = require("./routes/api/inventory");
 
 //provide db connection information
 const db = require("./config/config")

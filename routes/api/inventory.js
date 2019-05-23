@@ -9,7 +9,7 @@ module.exports = function(app) {
   app.get("/api/inventory", inventory.findAll);
 
   //retrieve a single inventory item by id
-  app.get("/api/inventory/:id", inventory.findById);
+  // app.get("/api/inventory/:id", inventory.findById);
 
   //update a inventory item by id
   app.put("/api/inventory/:id", inventory.update);

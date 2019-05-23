@@ -5,6 +5,7 @@ const Inventory = db.Inventory;
 //PUT new inventory
 exports.create = (req, res) => {
   Inventory.create({
+    // id: req.body.id,
     vendor: req.body.vendor,
     date: req.body.date,
     po: req.body.po,
@@ -27,13 +28,13 @@ exports.findAll = (req, res) => {
 };
 
 //GET specific inventory item
-exports.findById = (req, res) => {
-  Inventory.findById(req.params.id).then(result => {
-    res.send(result);
-  }).catch(err => {
-    res.status(500).send(`Err -> ${err}`);
-  });
-};
+// exports.findById = (req, res) => {
+//   Inventory.findById(req.params.id).then(result => {
+//     res.send(result);
+//   }).catch(err => {
+//     res.status(500).send(`Err -> ${err}`);
+//   });
+// };
 
 //UPDATE specific inventory item
 exports.update = (req, res) => {
@@ -60,8 +61,8 @@ exports.delete = (req, res) => {
     where: {
       id: req.params.id
     }
-  }).then(() => {
-    res.status(200).send(inventory);
+  }).then((result) => {
+    res.status(200).sendStatus(200);
   }).catch(err => {
     res.status(500).send(`Error -> ${err}`);
   });

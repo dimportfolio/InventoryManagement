@@ -1,27 +1,22 @@
-module.exports = (sequelize, Sequelize) => {
-  const Inventory = sequelize.define("inventory", {
-    id: {
-      type: Sequelize.INTEGER,
-      autoIncrement: true,
-      primaryKey: true
-    },
-    vendor: {
-      type: Sequelize.STRING
-    },
-    date: {
-      type: Sequelize.STRING
-    },
-    po: {
-      type: Sequelize.STRING
-    },
-    material: {
-      type: Sequelize.STRING
-    },
-    quantity: {
-      type: Sequelize.INTEGER
-    }
-    
-  })
+const mongoose = require("mongoose");
+const Schema = mongoose.Schema;
 
-  return Inventory;
-}
+const InventorySchema = new Schema({
+  vendor: {
+    type: String
+  },
+  date: {
+    type: String
+  },
+  po: {
+    type: String
+  },
+  material: {
+    type: String
+  },
+  quantity: {
+    type: Number
+  }
+})
+
+module.exports = Inventory = mongoose.model("inventory", InventorySchema);

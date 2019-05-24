@@ -1,19 +1,40 @@
-module.exports = function(app) {
 
-  const inventory = require("../../controller/controller")
 
-  //create new inventory
-  app.post("/api/inventory/create", inventory.create);
+const express = require("express");
+const router = express.Router();
 
-  //retrieve all inventory items
-  app.get("/api/inventory", inventory.findAll);
+const Inventory = require("../../models/Inventory");
 
-  //retrieve a single inventory item by id
-  // app.get("/api/inventory/:id", inventory.findById);
+//create new inventory
+router.post("/", (req, res) => {
+  const newInventory = new Inventory({
+    vendor: req.body.vendor,
+    date: req.body.date,
+    po: req.body.po,
+    material: req.body.material,
+    quantity: req.body.quantity
+  });
 
-  //update a inventory item by id
-  app.put("/api/inventory/:id", inventory.update);
+  newInventory.save().then(inventory => res.json(inventory));
+});
+//retrieve all inventory items
+router.get("/", (req, res) => {
+  Inventory.find()
+    .sort({ date: -1 })
+    .then(inventory => res.json(inventory))
+});
 
-  //delete a inventory item by id
-  app.delete("/api/inventory/:id", inventory.delete);
-}
+//retrieve a single inventory item by id
+// app.get("/api/inventory/:id", inventory.findById);
+
+// //update a inventory item by id
+// router.put("/api/inventory/:id", inventory.update);
+
+// //delete a inventory item by id
+router.delete("/:id", (req, res) => {
+  Inventory.findById(req.params.id)
+    .then(inventory => inventory.remove().then(() => res.json({ success: true })))
+    .catch(err => res.status(404).json({ success: false }));
+});
+
+module.exports = router;

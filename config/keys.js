@@ -1,3 +1,3 @@
 module.exports = {
-  mongoURI: "mongodb+srv://adminAccount:PassWord@cluster0-fwwib.mongodb.net/test?retryWrites=true"
+  mongoURI: "mongodb://heroku_7pqgg9ld:omolggls1lvh4m645flkjddb53@ds261296.mlab.com:61296/heroku_7pqgg9ld"
 }

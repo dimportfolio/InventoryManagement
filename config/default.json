@@ -1,0 +1,7 @@
+{
+  "mongoURI": "mongodb+srv://adminAccount:Password@cluster0-fwwib.mongodb.net/test?retryWrites=true",
+  "jwtSecret": "project_Secret"
+}
+// {
+//   "mongoURI": "mongodb+srv://adminAccount:Password@cluster0-fwwib.mongodb.net/test?retryWrites=true&w=majority"
+// }

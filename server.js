@@ -1,36 +1,30 @@
 const express = require("express");
-const bodyParser = require("body-parser");
 const mongoose = require("mongoose")
 const path = require("path");
 const session = require("express-session");
-
-
-const inventory = require("./routes/api/inventory")
+const config = require("config")
 
 //initialize express
 const app = express();
 
 //bodyparser middleware
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(bodyParser.json());
-
+app.use(express.urlencoded({ extended: false }));
+app.use(express.json());
 
 //provide db connection information
-const db = require("./config/keys").mongoURI;
+const db = config.get("mongoURI");
 
 // connect to mongo
-mongoose.connect(db).then(() => console.log("MongoDB Connected...")).catch(err => console.log(err))
-
-// db.sequelize.sync({force: true}).then(() => {
-//   console.log("Drop and Resync with {force: true}");
-// });
+mongoose
+  .connect(db, {useNewUrlParser: true, useCreateIndex: true})
+  .then(() => console.log("MongoDB Connected..."))
+  .catch(err => console.log(err))
 
 //use routes
-//anything that uses the route /api/inventory, should refer to the routes const, which provides the file containing routes
-// app.use("/api/inventory", routes);
-// require("./routes/api/inventory")(app);
 
-app.use("/api/inventory", inventory)
+app.use("/api/inventory", require("./routes/api/inventory"))
+app.use("/api/users", require("./routes/api/users"))
+app.use("/api/auth", require("./routes/api/auth"))
 
 // Serve static assets when in production
 if(process.env.NODE_ENV === "production") {
